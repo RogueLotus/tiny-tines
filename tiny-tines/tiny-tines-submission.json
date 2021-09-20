@@ -1,0 +1,32 @@
+{
+  "actions": [
+    {
+      "type": "HTTPRequestAction",
+      "name": "test_data",
+      "options": {
+        "url": "https://coding-exercise.tines.io/webhook/160564ed1b5ea694ca19024c9a7d2889/54a35506d279294db2abac754d46685c?email=elinga_p@ymail.com"
+      }
+    },
+    {
+      "type": "HTTPRequestAction",
+      "name": "sunset",
+      "options": {
+        "url": "https://api.sunrise-sunset.org/json?lat={{test_data.latitude}}&lng={{test_data.longitude}}&date={{test_data.date}}"
+      }
+    },
+    {
+      "type": "PrintAction",
+      "name": "print_sunset",
+      "options": {
+        "message": "Sunset on {{test_data.date}} was at {{sunset.results.sunset}}."
+      }
+    },
+    {
+      "type": "HTTPRequestAction",
+      "name": "submit",
+      "options": {
+        "url": "{{test_data.submission_url}}&data=sunset.status_{{sunset.status}}_{{test_data.date}}_{{test_data.deeply.nested.data}}_{{does.not.exist}}_{{unmatched.brackets}"
+      }
+    }
+  ]
+}
